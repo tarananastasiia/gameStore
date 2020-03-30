@@ -6,6 +6,7 @@ using Moq;
 using Ninject;
 using GameStore.Domain.Abstract;
 using GameStore.Domain.Entities;
+using GameStore.Domain.Concrete;
 
 namespace GameStore.WebUI.Infrastructure
 {
@@ -31,14 +32,16 @@ namespace GameStore.WebUI.Infrastructure
 
         private void AddBindings()
         {
-            Mock<IGameRepository> mock = new Mock<IGameRepository>();
-            mock.Setup(m => m.Games).Returns(new List<Game>
-    {
-        new Game { Name = "Дудлджамп", Price = 300 },
-        new Game { Name = "Три в ряд", Price=450 },
-        new Game { Name = "Том", Price=200 }
-    });
-            kernel.Bind<IGameRepository>().ToConstant(mock.Object);
+            kernel.Bind<IGameRepository>().To<EFGameRepository>();
+
+            EmailSettings emailSettings = new EmailSettings
+            {
+                WriteAsFile = bool.Parse(ConfigurationManager
+                    .AppSettings["Email.WriteAsFile"] ?? "false")
+            };
+
+            kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>()
+                .WithConstructorArgument("settings", emailSettings);
         }
 
     }
