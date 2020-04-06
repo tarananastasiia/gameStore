@@ -56,6 +56,7 @@
       <HintPath>..\packages\Ninject.MVC3.3.0.0.6\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -93,8 +94,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AdminSecurityTests.cs" />
     <Compile Include="AdminTests.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="ImageTests.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
